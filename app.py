@@ -66,7 +66,7 @@ def login():
         connection.close()
         if check_password_hash(user[0], pswd):
             session['user'] = user[1]
-            return redirect(url_for('home', user=session['user']))
+            return redirect(url_for('home'))
         else:
             alert="Wrong password"
             return render_template('login.html', alert_message=alert)
@@ -123,7 +123,6 @@ def logout():
 
 @app.route('/home')
 def home():
-    print(f"{session}")
     if 'user' not in session:
         return redirect('/login')
     else:
@@ -131,4 +130,4 @@ def home():
 
 if __name__=="__main__":
     init_db()
-    app.run(debug=True)
+    app.run(host='127.0.0.0', debug=True)
